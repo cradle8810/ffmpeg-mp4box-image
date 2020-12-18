@@ -15,10 +15,12 @@ RUN apt-get update &&\
     cd gpac_public &&\
     ./configure --static-mp4box &&\
     make -j 2 &&\
-    apt-get clean all 
+    apt-get clean all
 
 ####################################################
 FROM jrottenberg/ffmpeg:4.1-ubuntu
+
+LABEL org.opencontainers.image.source https://github.com/cradle8810/ffmpeg-mp4box-image
 
 WORKDIR /work
 COPY --from=builder /work/gpac_public/bin/gcc/MP4Box /usr/local/bin/MP4Box
