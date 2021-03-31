@@ -12,7 +12,7 @@ env:
   CI_IMAGE_NAME: 'ghcr.io/cradle8810/ffmpeg-mp4box-image'
 
 jobs:
-  "build mp4box":
+  "build_mp4box":
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
