@@ -20,19 +20,27 @@ jobs:
           chmod +x .github/workflows/apt-get_install.sh 
           sudo .github/workflows/apt-get_install.sh
 
-      - name: clone_and_configure_gpac
+      - name: git_clone
         run: |
           git clone --depth 1 https://github.com/gpac/gpac gpac_public
           git clone --depth 1 https://github.com/gpac/deps_unix
+
+      - name: configure_dependency
+        run: |
           cd deps_unix
           git submodule update --init --recursive --force --checkout
           ./build_all.sh linux
-          cd gpac_public
+
+      - name: configure_gpac
+        run: |
+          cd ../gpac_public
           ./configure --static-mp4box
 
-      - name: make
+      - name: make_gpac
         run: |
           make -j 2
+
+      - name: make_deb_package
           make deb
           ls
 
@@ -41,4 +49,3 @@ jobs:
         with:
           name: mp4box-package
           path: '*.deb'
-
