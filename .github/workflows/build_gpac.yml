@@ -65,7 +65,7 @@ jobs:
         run: |
           pwd
           ls
-          cd ~/gpac_public
+          cd gpac_public
           ./configure --static-mp4box
 
       - name: make_gpac
