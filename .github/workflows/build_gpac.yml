@@ -20,17 +20,19 @@ jobs:
 
       - name: apt-get
         run: |
-          ls
           chmod +x .github/workflows/apt-get_install.sh 
           sudo .github/workflows/apt-get_install.sh
 
       - name: git_clone
         run: |
+          pwd
           git clone --depth 1 https://github.com/gpac/gpac gpac_public
           git clone --depth 1 https://github.com/gpac/deps_unix
 
       - name: configure_dependency
         run: |
+          pwd
+          ls
           cd deps_unix
           git submodule update --init --recursive --force --checkout
           ./build_all.sh linux
@@ -49,7 +51,9 @@ jobs:
 
       - name: configure_gpac
         run: |
-          cd ../gpac_public
+          pwd
+          ls
+          cd ~/gpac_public
           ./configure --static-mp4box
 
       - name: make_gpac
