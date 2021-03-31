@@ -17,18 +17,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-    
+
       - name: apt-get
         run: |
           chmod +x .github/workflows/apt-get_install.sh 
-          sudo .github/workflows/apt-get_install.sh 
+          sudo .github/workflows/apt-get_install.sh
+
+      - name: clone_gpac
+        run: |
           git clone https://github.com/gpac/gpac gpac_public
           git clone https://github.com/gpac/deps_unix
           cd deps_unix
           git submodule update --init --recursive --force --checkout
+
+      - name: configure
+        run: |  
           ./build_all.sh linux
           cd gpac_public
           ./configure --static-mp4box
+
+      - name: make
+        run: |
           make -j 2
           make deb
           ls
