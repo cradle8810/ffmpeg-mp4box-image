@@ -22,6 +22,18 @@ jobs:
         run: |
           chmod +x .github/workflows/apt-get_install.sh 
           sudo .github/workflows/apt-get_install.sh
+      
+      - name: Cache apt-get packages
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: /var/cache/apt/archives/
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
       - name: git_clone
         run: |
@@ -45,7 +57,7 @@ jobs:
           path: ~/deps_unix
           key: ${{ runner.os }}-build-${{ env.cache-name }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-${{ env.cache-name }}
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
