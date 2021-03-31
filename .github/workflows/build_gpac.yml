@@ -44,6 +44,7 @@ jobs:
           make -j 2
 
       - name: make_deb_package
+        run: |
           make deb
           ls
 
@@ -60,6 +61,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Kick Buildx
         uses: docker/setup-buildx-action@v1
 
