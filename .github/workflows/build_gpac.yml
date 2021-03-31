@@ -20,6 +20,7 @@ jobs:
 
       - name: apt-get
         run: |
+          ls
           chmod +x .github/workflows/apt-get_install.sh 
           sudo .github/workflows/apt-get_install.sh
 
@@ -33,6 +34,18 @@ jobs:
           cd deps_unix
           git submodule update --init --recursive --force --checkout
           ./build_all.sh linux
+
+      - name: Cache dependency modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/deps_unix
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
       - name: configure_gpac
         run: |
