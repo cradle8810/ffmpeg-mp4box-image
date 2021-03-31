@@ -1,5 +1,5 @@
 ---
-name: Docker Build from development branch
+name: Build_GPAC
 
 on:
   push:
@@ -7,9 +7,6 @@ on:
       - '**'
     tags:
       - 'v*'
-
-env:
-  CI_IMAGE_NAME: 'ghcr.io/cradle8810/ffmpeg-mp4box-image'
 
 jobs:
   "build_mp4box":
@@ -23,15 +20,12 @@ jobs:
           chmod +x .github/workflows/apt-get_install.sh 
           sudo .github/workflows/apt-get_install.sh
 
-      - name: clone_gpac
+      - name: clone_and_configure_gpac
         run: |
-          git clone https://github.com/gpac/gpac gpac_public
-          git clone https://github.com/gpac/deps_unix
+          git clone --depth 1 https://github.com/gpac/gpac gpac_public
+          git clone --depth 1 https://github.com/gpac/deps_unix
           cd deps_unix
           git submodule update --init --recursive --force --checkout
-
-      - name: configure
-        run: |  
           ./build_all.sh linux
           cd gpac_public
           ./configure --static-mp4box
