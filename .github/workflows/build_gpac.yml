@@ -1,5 +1,5 @@
 ---
-name: Build_GPAC
+name: Install_GPAC
 
 on:
   push:
