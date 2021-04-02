@@ -4,7 +4,7 @@ LABEL org.opencontainers.image.source https://github.com/cradle8810/ffmpeg-mp4bo
 RUN apt-get update &&\
     apt-get remove -y libfontconfig1 &&\
     DEBIAN_FRONTEND=noninteractive \
-    apt-get install -y libfontconfig1-dev &&\
+    apt-get install -y --reinstall --purge fontconfig-config &&\
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y \
       gpac \
