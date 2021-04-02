@@ -13,7 +13,6 @@ env:
 
 jobs:
   "build_dockerfile":
-    needs: [build_mp4box]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
