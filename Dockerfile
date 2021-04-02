@@ -1,4 +1,4 @@
-FROM jrottenberg/ffmpeg:4.1-ubuntu as builder
+FROM ubuntu:20.04
 LABEL org.opencontainers.image.source https://github.com/cradle8810/ffmpeg-mp4box-image
 
 RUN apt-get update &&\
@@ -7,6 +7,7 @@ RUN apt-get update &&\
     apt-get install -y --reinstall --purge fontconfig-config &&\
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y \
+      ffmpeg \
       gpac \
     &&\
     apt-get clean all &&\
